@@ -7,19 +7,25 @@ public class YTCF1 {
 
     public static void main(String[] args) {
         int N=(int) Math.pow(10, 5);
-//        int[] points = new Random().ints(N, 0, (int) Math.pow(10, 9)).distinct().toArray();        
-        int[] points = {6,2,4,3,5,1};
-        int R = new Random().nextInt((int) Math.pow(10, 5));
-        R=1;
-        int groups = groupPoints.getGroupsNumber(R, points);
-
-        System.out.println("Groups=" + groups);
+        int[] points = new Random().ints(N, 0, (int) Math.pow(10, 9)).distinct().toArray();
+        int R = new Random().nextInt((int) Math.pow(10, 9));
+        groupPoints.groupPointsTest(R, points);
+        
     }
 
 }
 
 class groupPoints {
-
+    private static final long MEGABYTE = 1024L * 1024L;
+    public static void groupPointsTest(int R, int[] points){
+        int groupsNumber = getGroupsNumber(R, points);
+        Runtime runtime =Runtime.getRuntime();
+        runtime.gc();
+        long memory = runtime.totalMemory() - runtime.freeMemory();
+        System.out.println("Groups = "+groupsNumber);
+        System.out.println("Used memory is bytes: " + memory);
+        System.out.println("Used memory is megabytes: " + (memory/MEGABYTE));
+    }
     public static int getGroupsNumber(int R, int[] points) {
         Arrays.sort(points);
         /* System.out.print("Points = ");
@@ -64,3 +70,4 @@ class groupPoints {
         return numberOfGroups;
     }
 }
+
